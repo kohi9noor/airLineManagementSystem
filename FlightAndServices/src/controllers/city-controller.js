@@ -91,7 +91,7 @@ const uppate = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const response = await CitySerivce.getAll();
+    const response = await CitySerivce.getAll(req.query);
     return res.status(201).json({
       data: response,
     });
