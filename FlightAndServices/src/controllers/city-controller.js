@@ -1,16 +1,18 @@
-const { Cityservice } = require("../services/index.js");
+const { CityService } = require("../services/index.js");
 
-// POST DATA -> req.body
+const CitySerivce = new CityService();
 
-const CityService = new Cityservice();
+// POST
+// DATA -> req.body as json format
 
 const create = async (req, res) => {
   try {
-    const city = await CityService.createCity(req.body);
+    const city = await CitySerivce.createCity(req.body);
     return res.status(201).json({
       data: city,
       success: true,
-      message: "Succssfully created a city",
+      message: "successfullly created a city",
+      err: {},
     });
   } catch (error) {
     console.log(error);
@@ -18,29 +20,94 @@ const create = async (req, res) => {
       data: {},
       success: false,
       message: "Not able to create a city",
+      err: error,
     });
   }
 };
 
-// Mc agar ab kuch open kiya to g faad dunga bosdk
-
-const destory = (req, res) => {
+//  Delete -> /city:id
+const destroy = async (req, res) => {
   try {
+    const response = await CitySerivce.deleteCity(req.params.id);
+    return res.status(201).json({
+      data: response,
+      success: true,
+      message: "successfullly delted a city",
+      err: {},
+    });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Not able to delete the city",
+      err: error,
+    });
   }
 };
 
-const get = (req, res) => {
+//  GET -> /city/:
+
+const get = async (req, res) => {
   try {
+    const response = await CitySerivce.getCity(req.params.id);
+    return res.status(201).json({
+      data: response,
+      success: true,
+      message: "successfullly fetched a city",
+      err: {},
+    });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Not able to get the city",
+      err: error,
+    });
   }
 };
 
-const update = (req, res) => {
+//  PAtch -> city/:id -> req.body
+const uppate = async (req, res) => {
   try {
+    const response = await CitySerivce.updateCity(req.params.id, req.body);
+    return res.status(201).json({
+      data: response,
+      success: true,
+      message: "successfullly updated a city",
+      err: {},
+    });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Not able to update the city",
+      err: error,
+    });
   }
+};
+
+const getAll = async (req, res) => {
+  try {
+    const response = await CitySerivce.getAll();
+    return res.status(201).json({
+      data: response,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "No city",
+      err: error,
+    });
+  }
+};
+module.exports = {
+  create,
+  destroy,
+  get,
+  uppate,
+  getAll,
 };

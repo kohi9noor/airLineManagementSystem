@@ -1,43 +1,56 @@
 const { CityRepo } = require("../repository/index.js");
 
-class Cityservice {
+class CityService {
+  // Hackeerrank
+
   constructor() {
-    this.CityRepo = new CityRepo();
+    this.cityRepo = new CityRepo();
   }
 
   async createCity(data) {
     try {
-      const result = await this.CityRepo.createCity(data);
-      return result;
+      const city = await this.cityRepo.createCity(data);
+      return city;
     } catch (error) {
-      console.log(error);
+      console.log("Something went wrong in service layer!", error);
     }
   }
 
   async deleteCity(cityId) {
     try {
-      const response = await this.CityRepo.deleteCity(cityId);
-      return response;
+      const reponse = await this.cityRepo.deletCity(cityId);
+      return reponse;
     } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async updateCity(cityId, data) {
-    try {
-      const city = await this.CityRepo.updateCity(cityId, data);
-      return city;
-    } catch (error) {
-      console.log(error);
+      console.log("Something Went Wrong in service layer", error);
     }
   }
 
   async getCity(cityId) {
     try {
-      const city = await this.CityRepo.getCity(cityId);
+      const city = await this.cityRepo.getCity(cityId);
       return city;
     } catch (error) {
-      console.log(error);
+      console.log("Somethihng went wrong in serivce layer", error);
+    }
+  }
+
+  async updateCity(cityId, data) {
+    try {
+      const city = await this.cityRepo.updateCity(cityId, data);
+      return city;
+    } catch (error) {
+      console.log("Something went wrong in service layer", error);
+    }
+  }
+
+  async getAll() {
+    try {
+      const city = await this.cityRepo.getAllCity();
+      return city;
+    } catch (error) {
+      console.log("Something went wrong in the server layer");
     }
   }
 }
+
+module.exports = CityService;
