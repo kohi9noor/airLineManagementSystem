@@ -1,5 +1,5 @@
 const { City } = require("../models/index");
-
+const { Op } = require("sequelize");
 class cityRepo {
   async deleteCity(cityId) {
     try {
@@ -49,8 +49,18 @@ class cityRepo {
     }
   }
 
-  async getAllCities() {
+  async getAllCities(filter) {
     try {
+      if (filter.name) {
+        const cities = await City.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: filter.name,
+            },
+          },
+        });
+        return cities;
+      }
       const getallCities = await City.findAll();
       return getallCities;
     } catch (error) {
