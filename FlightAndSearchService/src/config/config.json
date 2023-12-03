@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": <db-username>,
-    "password": <db password>,
-    "database": <db name>,
-    "host": <local-host>,
-    "dialect": <db name>
+    "username": "postgres",
+    "password": "kohi9noor",
+    "database": "flighAndSearch",
+    "host": "localhost",
+    "dialect": "postgres"
   },
   "test": {
     "username": "root",
