@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const { PORT } = require("./config/db.js");
 const ApiRoutes = require("./routes/index.js");
-const { Airport, City, Airplan } = require("./models/index.js");
 
 const setupServer = async () => {
   const app = express();
@@ -10,10 +9,7 @@ const setupServer = async () => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use("/api", ApiRoutes);
   app.listen(PORT, async () => {
-    console.log(`Server is started now ${PORT}`);
-    await Airplan.create({
-      modelNumber: "Bombardier CRJ",
-    });
+    console.log(`Server has started now ${PORT}`);
   });
 };
 

@@ -1,4 +1,5 @@
-const expres = require("express");
+const express = require("express");
+const FlightController = require("../../controllers/flight-controller.js");
 
 const {
   create,
@@ -8,12 +9,12 @@ const {
   getAll,
 } = require("../../controllers/city-controller.js");
 
-const router = expres.Router();
+const router = express.Router();
 
 router.post("/city", create);
 router.get("/city/:id", get);
 router.delete("/city/:id", destroy);
 router.patch("/city/:id", update);
 router.get("/city", getAll);
-
+router.post("/flights", FlightController);
 module.exports = router;
