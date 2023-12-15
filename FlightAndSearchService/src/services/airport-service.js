@@ -4,6 +4,7 @@ const airportRepo = new AirportRepo();
 
 async function createAirport(data) {
   try {
+    console.log(data);
     const airport = await airportRepo.create(data);
     return airport;
   } catch (error) {

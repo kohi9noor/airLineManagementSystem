@@ -1,15 +1,10 @@
-const { Airplan } = require("../models/index");
+const CrudRepo = require("./crud-repositiory.js");
+const { Airplan } = require("../models");
 
-class AirplaneRepo {
-  async getAirplane(id) {
-    try {
-      const airplane = await Airplan.findByPk(id);
-      return airplane;
-    } catch (error) {
-      console.log("Somethin went wrong in the repo layer");
-      throw { error };
-    }
+class AirportRepository extends CrudRepo {
+  constructor() {
+    super(Airplan);
   }
 }
 
-module.exports = AirplaneRepo;
+module.exports = AirportRepository;

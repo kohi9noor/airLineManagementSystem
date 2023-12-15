@@ -19,4 +19,6 @@ router.get("/city", getAll);
 router.post("/flights", flightController.create);
 router.get("/flights", flightController.getAll);
 router.post("/airports", airportController.createAirport);
+router.get("/airports", airportController.getAirport);
+router.get("/airport/all", airportController.getAllAirport);
 module.exports = router;
