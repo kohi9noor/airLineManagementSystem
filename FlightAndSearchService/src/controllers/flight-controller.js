@@ -1,11 +1,15 @@
 const { flightSerice } = require("../services/index");
-
+const {
+  ClientError,
+  ServerError,
+  SuccessCodes,
+} = require("../utils/error-codes");
 const flightService = new flightSerice();
 
 const create = async (req, res) => {
   try {
     const flight = await flightService.createFlight(req.body);
-    return res.status(201).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: flight,
       success: true,
       err: {},
@@ -13,7 +17,7 @@ const create = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerError.INTERNAL_SERVER_ERROR).json({
       data: {},
       success: false,
       messsage: "Not able to create a flight",
@@ -25,7 +29,7 @@ const create = async (req, res) => {
 const getAll = async (req, res) => {
   try {
     const response = await flightService.getAllFlightData(req.query);
-    return res.status(200).json({
+    return res.status(SuccessCodes.OK).json({
       data: response,
       success: true,
       err: {},
@@ -33,7 +37,7 @@ const getAll = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
+    return res.status(ServerError.INTERNAL_SERVER_ERROR).json({
       data: {},
       sucess: false,
       message: "Not able to fatch flights",
