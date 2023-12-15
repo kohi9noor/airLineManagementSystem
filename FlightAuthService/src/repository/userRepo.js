@@ -1,0 +1,30 @@
+const { User } = require("../models/index");
+
+class UserRepo {
+  async create(data) {
+    try {
+      console.log(data);
+      const user = await User.create(data);
+      return user;
+    } catch (error) {
+      console.log("Somethign went wrong on repository layer");
+      throw { error };
+    }
+  }
+
+  async destroy(userId) {
+    try {
+      await UserRepo.destroy({
+        where: {
+          id: userId,
+        },
+      });
+      return true;
+    } catch (error) {
+      console.log("somethingw ent wrong on repository layer");
+      throw { error };
+    }
+  }
+}
+
+module.exports = UserRepo;
