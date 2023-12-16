@@ -1,8 +1,9 @@
 const express = require("express");
-const { PORT } = require("./config/serverConfig");
+const { PORT, JWT_KEY } = require("./config/serverConfig");
 const bodyParser = require("body-parser");
 const app = express();
 const apiRoutes = require("./routes/index");
+const userService = require("./services/userServices");
 
 const prepareAndStartServer = () => {
   app.use(bodyParser.json());
