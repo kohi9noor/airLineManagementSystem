@@ -63,6 +63,24 @@ class userService {
       throw { error };
     }
   }
+
+  async isAuthenticated(token) {
+    try {
+      const response = this.verifyToken(token);
+      if (!response) {
+        throw { err: "invalid token" };
+      }
+      console.log(response);
+      const user = this.userRepository.getById(response.id);
+      if (!user) {
+        throw { error: "No user with the corresponding token exists" };
+      }
+      return user.id;
+    } catch (error) {
+      console.log("something went in password compersion");
+      throw { error };
+    }
+  }
 }
 
 module.exports = userService;
