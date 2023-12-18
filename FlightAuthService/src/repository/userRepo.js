@@ -57,7 +57,7 @@ class UserRepo {
       const user = await User.findByPk(userId);
       const adminRole = await Role.findOne({
         where: {
-          name: "ADMIN",
+          name: "Admin",
         },
       });
       return user.hasRole(adminRole);

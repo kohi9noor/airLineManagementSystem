@@ -19,7 +19,7 @@ router.post(
 router.get("/isAuthenticated", UserController.isAuthenticated);
 
 router.get(
-  "isAdmin",
+  "/isAdmin",
   AuthRequestValidators.validateIsAdminRequest,
   UserController.isAdmin
 );
