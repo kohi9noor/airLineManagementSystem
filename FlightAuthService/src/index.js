@@ -1,5 +1,5 @@
 const express = require("express");
-const { PORT, JWT_KEY } = require("./config/serverConfig");
+const { PORT } = require("./config/serverConfig");
 const bodyParser = require("body-parser");
 const app = express();
 const apiRoutes = require("./routes/index");
