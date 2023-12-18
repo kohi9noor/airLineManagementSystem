@@ -48,6 +48,7 @@ class userService {
   verifyToken(token) {
     try {
       const response = jwt.verify(token, JWT_KEY);
+      console.log(response);
       return response;
     } catch (error) {
       console.log("somwthing went wrong in token validation");
@@ -75,10 +76,18 @@ class userService {
       if (!user) {
         throw { error: "No user with the corresponding token exists" };
       }
-      console.log(user);
       return user.id;
     } catch (error) {
       console.log("something went in password compersion");
+      throw { error };
+    }
+  }
+
+  isAdmin(userId) {
+    try {
+      return this.userRepository.isAdmin(userId);
+    } catch (error) {
+      console.log("Something went wrong in the service layer");
       throw { error };
     }
   }
