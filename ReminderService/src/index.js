@@ -2,6 +2,8 @@ const express = require("express");
 
 const { PORT } = require("./config/serverConfig");
 
+const { sendBasicEmail } = require("./service/emailService");
+
 const bodyParser = require("body-parser");
 
 const setUpServer = async () => {
