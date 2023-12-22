@@ -18,13 +18,18 @@ router.get("/city/:id", get);
 router.delete("/city/:id", destroy);
 router.patch("/city/:id", update);
 router.get("/city", getAll);
+
+router.post("/airports", airportController.createAirport);
+router.get("/airports", airportController.getAirport);
+router.get("/airport/all", airportController.getAllAirport);
+
 router.post(
   "/flights",
   flightMiddlewares.validateCreateFlight,
   flightController.create
 );
+
 router.get("/flights", flightController.getAll);
-router.post("/airports", airportController.createAirport);
-router.get("/airports", airportController.getAirport);
-router.get("/airport/all", airportController.getAllAirport);
+router.get("/flights/:id", flightController.get);
+router.patch("/flights/:id", flightController.update);
 module.exports = router;

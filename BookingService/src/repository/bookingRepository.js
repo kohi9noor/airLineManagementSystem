@@ -14,13 +14,54 @@ class BookingRepository {
       throw new AppError(
         "Repository Error",
         "cannot create booking",
-        "there was some issu crreating the booking, plase try again later",
+        "there was some issu crreating the booking, please try again later",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+  async update(bookingId, data) {
+    try {
+      const booking = await Booking.findByPk(bookingId);
+
+      if (data.status) {
+        booking.status = data.status;
+      }
+
+      await booking.save();
+      return booking;
+    } catch (error) {
+      if (error.name == "SequelizeValidationError") {
+        throw new ValidationError(error);
+      }
+      throw new AppError(
+        "Repository Error",
+        "cannot create booking",
+        "there was some issu crreating the booking, please try again later",
         StatusCodes.INTERNAL_SERVER_ERROR
       );
     }
   }
 
-  async update(data) {}
+  async delect(bookingId) {
+    try {
+      await Booking.destroy({
+        where: {
+          id: bookingId,
+        },
+      });
+      return true;
+    } catch (error) {
+      if (error.name == "SequelizeValidationError") {
+        throw new ValidationError(error);
+      }
+      throw new AppError(
+        "Repository Error",
+        "cannot create booking",
+        "there was some issu crreating the booking, please try again later",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = BookingRepository;
