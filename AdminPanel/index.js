@@ -25,11 +25,20 @@ const start = async () => {
     ],
   });
 
+  const newAdmin = new AdminJS({
+    resources: [
+      {
+        resource: db.table("Roles"),
+        options: {},
+      },
+    ],
+  });
   admin.watch();
 
   const router = Plugin.buildRouter(admin);
 
   app.use(admin.options.rootPath, router);
+  app.use(newAdmin.options.rootPath, router);
 
   app.listen(8080, () => {
     console.log("app started");
