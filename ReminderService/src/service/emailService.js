@@ -42,7 +42,25 @@ const create = async (data) => {
   }
 };
 
-module.exports = { sendBasicEmail, fecthPendingEmails, create, updateTickets };
+const subscribeEvents = async (payload) => {
+  let service = payload.service;
+  let data = payload.data;
+
+  if (service == "CREATE_TICKET") {
+    await create(data);
+  } else if (service == "SEND_BASIC_EMAIL") {
+    await sendBasicEmail(data);
+  } else {
+    console.log("No valid event revceived");
+  }
+};
+module.exports = {
+  sendBasicEmail,
+  fecthPendingEmails,
+  create,
+  updateTickets,
+  subscribeEvents,
+};
 
 //
 // Smtp -> a@b.com

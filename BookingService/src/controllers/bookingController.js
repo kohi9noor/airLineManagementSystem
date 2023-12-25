@@ -9,13 +9,35 @@ const bookingService = new BookingService();
 
 class BookingController {
   constructor() {}
+
   async sendMessageToQueue(req, res) {
-    const channel = await createChannel();
-    const data = { message: "Success" };
-    publishMessage(channel, REMINDER_BINDING_KEY, JSON.stringify(data));
-    return res.status(200).json({
-      message: "Successfully publiched",
-    });
+    try {
+      const channel = await createChannel();
+      const payload = {
+        data: {
+          subject: "this is a noti from queue",
+          content: "some queue will subscribe this",
+          recepientEmail: "kohinoornimes@gmail.com",
+          notificationTime: "2023-12-25T11:25:01.31+02:00", // Make sure it includes the correct offset
+        },
+        service: "CREATE_TICKET",
+      };
+
+      await publishMessage(
+        channel,
+        REMINDER_BINDING_KEY,
+        JSON.stringify(payload)
+      );
+      return res.status(200).json({
+        message: "Successfully published",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        message: "Failed to publish message",
+        error: error.message,
+      });
+    }
   }
 
   async create(req, res) {
@@ -38,24 +60,5 @@ class BookingController {
     }
   }
 }
-
-// const destroy = async (req, res) => {
-//   try {
-//     const response = await bookingService.destroy(req.params.id);
-//     return res.status(SuccessCodes.OK).json({
-//       message: "Successfully deleted the booking",
-//       data: response,
-//       err: {},
-//     });
-//   } catch (error) {
-//     return res
-//       .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
-//       .json({
-//         message: "Something went wrong",
-//         success: false,
-//         err: error.explanation,
-//       });
-//   }
-// };
 
 module.exports = BookingController;
