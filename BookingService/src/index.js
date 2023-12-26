@@ -8,7 +8,15 @@ const apiRoutes = require("./routes/index");
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/api", apiRoutes);
+
+app.get("/bookingservice/api/v1/home", (req, res) => {
+  return res.json({ message: "OK" });
+});
+
+// app.use("/bookings/api", apiRoutes);
+
+app.use("/bookingservice/api", apiRoutes);
+
 const setServer = async () => {
   app.listen(PORT, () => {
     console.log("Server has started", PORT);
