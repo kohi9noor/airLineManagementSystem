@@ -12,23 +12,14 @@ const start = async () => {
   const app = express();
 
   const db = await new Adapter("postgresql", {
-    connectionString: "postgres://postgres:kohi9noor@localhost:5432/AuthDB",
-    database: "AuthDB",
+    connectionString: "postgres://postgres:<Your_Password>@localhost:5432/<YOUR_DATABASE>",
+    database: "<YOUR_DATABASE-NAME>",
   }).init();
 
   const admin = new AdminJS({
     resources: [
       {
-        resource: db.table("Users"),
-        options: {},
-      },
-    ],
-  });
-
-  const newAdmin = new AdminJS({
-    resources: [
-      {
-        resource: db.table("Roles"),
+        resource: db.table("<TABLE_NAME>"),
         options: {},
       },
     ],
