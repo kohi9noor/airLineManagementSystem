@@ -10,6 +10,17 @@ class BookingService {
 
   async createBooking(data) {
     try {
+      const idempotencyToken = data.idempotencyToken;
+
+      // Check if the idempotency token already exists
+      const existingBooking = await this.bookingRepository.getByToken(
+        idempotencyToken
+      );
+      if (existingBooking) {
+        // Return the result of the previous booking
+        return existingBooking;
+      }
+
       const flightId = data.flightId;
 
       //   passing the flightId from booking data to flight service for fecthing the flight

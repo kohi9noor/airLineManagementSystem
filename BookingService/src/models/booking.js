@@ -1,18 +1,20 @@
 "use strict";
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Booking extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       // define association here
     }
   }
+
   Booking.init(
     {
+      idempotencyToken: {
+        type: DataTypes.UUID, // Assuming you want to use UUID for tokens
+        allowNull: true, // It can be nullable if you want to allow bookings without idempotency tokens
+        unique: true, // Ensure uniqueness of idempotency tokens
+      },
       flightId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -27,15 +29,14 @@ module.exports = (sequelize, DataTypes) => {
         values: ["InProcess", "Booked", "Cancelled"],
         defaultValue: "InProcess",
       },
-
       noOfSeats: {
         type: DataTypes.INTEGER,
-        allowNullL: false,
+        allowNull: false,
         defaultValue: 1,
       },
       totalCost: {
         type: DataTypes.INTEGER,
-        allowNullL: false,
+        allowNull: false,
         defaultValue: 0,
       },
     },
@@ -44,5 +45,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Booking",
     }
   );
+
   return Booking;
 };

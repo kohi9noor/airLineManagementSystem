@@ -62,6 +62,18 @@ class BookingRepository {
       );
     }
   }
+
+  async getByToken(idempotencyToken) {
+    try {
+      // Fetch the booking from the database using the idempotency token
+      const booking = await BookingModel.findOne({ idempotencyToken });
+
+      return booking;
+    } catch (error) {
+      // Handle database errors or return null if no booking is found
+      return null;
+    }
+  }
 }
 
 module.exports = BookingRepository;

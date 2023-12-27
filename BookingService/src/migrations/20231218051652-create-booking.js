@@ -3,6 +3,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable("Bookings", {
+      idempotencyToken: {
+        type: DataTypes.UUID, // Assuming you want to use UUID for tokens
+        allowNull: true, // It can be nullable if you want to allow bookings without idempotency tokens
+        unique: true, // Ensure uniqueness of idempotency tokens
+      },
       id: {
         allowNull: false,
         autoIncrement: true,
