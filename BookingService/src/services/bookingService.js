@@ -12,12 +12,10 @@ class BookingService {
     try {
       const idempotencyToken = data.idempotencyToken;
 
-      // Check if the idempotency token already exists
       const existingBooking = await this.bookingRepository.getByToken(
         idempotencyToken
       );
       if (existingBooking) {
-        // Return the result of the previous booking
         return existingBooking;
       }
 
